@@ -4,7 +4,6 @@
 	<link rel="stylesheet" type="text/css" href="/static/styles/style.css">
 	<script src="/static/scripts/jquery.min.js"></script>
 	<script src="/static/scripts/script.js"></script>
-<html>
 </head>
 
 <body>
@@ -19,3 +18,5 @@
 	<div id="results">
 	</div>
 </body>
+
+</html>
