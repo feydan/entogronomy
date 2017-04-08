@@ -41,8 +41,26 @@ class SearchController extends Controller
                 $plant_search,
                 $insect_search,
         ]);
-        
 
         return json_encode($search_result);
+    }
+
+    protected function transformSearchResults($searchResults)
+    {
+        $out = [];
+        foreach ($searchResults as $searchResult) {
+            $out[] = [
+                'interaction' => [
+                    'plant' => [
+                        'plant_id' => $searchResult->plant_id,
+                        'common_name' => $searchResult->plant_common_name,
+                    ],
+                    'insect' => [
+
+                    ]
+                ]
+            ];
+        }
+        return $out;
     }
 }
