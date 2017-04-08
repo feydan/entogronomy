@@ -1,9 +1,2 @@
 RewriteEngine On
-RewriteBase /
-
-RewriteRule ^/static/(.*)$ /static/%1
-
-RewriteCond %{THE_REQUEST} /public/([^\s?]*) [NC]
-RewriteRule ^ %1 [L,NE,R=302]
-
-RewriteRule ^(.*)$ public/$1
+RewriteRule ^(.*)$ public/$1 [L]
