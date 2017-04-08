@@ -1,5 +1,5 @@
  <!DOCTYPE html>
-<html lang="en">
+<html lang="en" style="background-image: src='img/sky.jpg';background-size: cover;">
 
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -12,15 +12,15 @@
     <title>Creative - Start Bootstrap Theme</title>
 
     <!-- Bootstrap Core CSS -->
-    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="vendorPlugIn/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom Fonts -->
-    <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="vendorPlugIn/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
 
     <!-- Plugin CSS -->
-    <link href="vendor/magnific-popup/magnific-popup.css" rel="stylesheet">
+    <link href="vendorPlugIn/magnific-popup/magnific-popup.css" rel="stylesheet">
 
     <!-- Theme CSS -->
     <link href="css/creative.css" rel="stylesheet">
@@ -37,10 +37,9 @@
 <body class="secondpage">
 
  
- <div class="container" style="width:60%; border-style: solid; border-width: 6px; border-color: #f05f40; background-color: rgba(255,255,255,0.6); color: black; ">
+ <div class="container" style="width:60%; border-style: solid; border-width: 6px; border-color: #f05f40; background-color: rgba(255,255,255,0.8); color: black; ">
             <div class="row text-center">
-              
-                    <div class="service-box">
+              <div class="service-box">
                         <i class="fa fa-4x fa-bug text-primary sr-icons"></i>
                         <h3>Enter pest name</h3>
                         <form name="search">
@@ -49,7 +48,9 @@
                     </div>
                 </div>
 
-
+                <br>
+                <hr class="primary">
+                <br>
 
                 <div class="row text-center">
                     <div class="service-box">
@@ -60,6 +61,10 @@
                         </form> 
                     </div>
                 </div>
+
+                <br>
+                <hr class="primary">
+                <br>
 
                 <div class="row text-center">
                     <div class="service-box">
@@ -75,21 +80,26 @@
 
                                         </div>
                                 </div>
-
-
-                <br> </br>
+                <br>
+                <hr class="primary">
+                <br>
 
                 <div class="row text-center">
                     <div class="service-box text-center">
                         <i class="fa fa-4x fa-camera text-primary sr-icons"></i>
                         <br>
-                        </br>
+                        <br>
                         <input class="pull-right" type="file" onchange="previewFile()"><br>
-                        <br> </br>
-                        <img src="" height="200" alt="Image preview...">
                         
-                        <br> </br>
-
+                        
+                        <img src=""> 
+                        <br>
+                        <br>
+                        <!-- height="200">-->
+                        <!--<alt="image preview" style="border-style: solid; border-width: 2px; border-color:black";-->
+                       
+                        
+                         <hr class="primary">
                         <script>
                                
                                var x = document.getElementById("demo");
@@ -148,24 +158,23 @@
                                 previewFile();  //calls the function named previewFile()
                         </script>
 
+                        
 
                     </div>
                 </div>
             </div>
         </div>
         
-        <br> </br>
+        <br> 
 
        <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
                      <a href="http://startbootstrap.com/template-overviews/creative/" class="btn btn-default btn-xl sr-button" style="background-color:#f05f40;">Submit Now!</a>
-                    <!--hr class="primary">-->
-                    <br></br>
+                    <br>
                 </div>
             </div>
         </div>
-
-    </section>
+        <br>
 </body>
 </html>
