@@ -418,3 +418,20 @@ img::-moz-selection {
 body {
   webkit-tap-highlight-color: #222222;
 }
+
+
+.secondpage {
+  position: relative;
+  width: 100%;
+  min-height: auto;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  background-size: cover;
+  -o-background-size: cover;
+  background-position: center;
+  background-image: url('../img/header.jpeg');
+  text-align: center;
+  color: white;
+  background-color: rgba(0,0,0,0.2);
+  background-repeat:no-repeat;
+}
