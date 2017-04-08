@@ -12,7 +12,7 @@
 */
 
 $app->get('/', function () use ($app) {
-    return "hi";
+    return view('index');
 });
 
 $app->get('/search', function () use ($app) {
