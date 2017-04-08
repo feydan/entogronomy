@@ -11,4 +11,4 @@
 |
 */
 
-$app->post('/api/search', 'SearchController@search');
+$app->get('/api/search', 'SearchController@search');
