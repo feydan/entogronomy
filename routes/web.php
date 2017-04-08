@@ -15,23 +15,4 @@ $app->get('/', function () use ($app) {
     return view('index');
 });
 
-$app->get('/search', function () use ($app) {
-    $search_result =  DB::statement('
-        SELECT
-          i.*,
-          plant.id as plant_id,
-          plant.species as plant_species,
-          plant.common_name as plant_common_name,
-          plant.description as plant_description,
-          insect.id as insect_id,
-          insect.species as insect_species,
-          insect.common_name as insect_common_name,
-          insect.description as insect_description
-        FROM interaction as i
-        JOIN plant using (plant_id)
-        JOIN insect using (insect_id)
-        WHERE
-    ');
-
-    return;
-});
+$app->post('/search', 'SearchController@search');
