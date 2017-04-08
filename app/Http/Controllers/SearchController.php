@@ -19,9 +19,7 @@ class SearchController extends Controller
 
     public function search(Request $request)
     {
-        $insect_search = $request->get('insect_search', '') . "%";
-        $plant_search = $request->get('plant_search', '') . "%";
-        $search_result =  DB::select('
+        $baseQuery = '
             SELECT
               i.*,
               plants.plant_id as plant_id,
@@ -35,14 +33,23 @@ class SearchController extends Controller
             FROM interactions as i
             JOIN plants using (plant_id)
             JOIN insects using (insect_id)
-            WHERE plants.common_name LIKE ?
-              AND insects.common_name LIKE ?
-        ', [
-                $plant_search,
-                $insect_search,
-        ]);
+        ';
 
-        return json_encode($search_result);
+        $bindings = [];
+        if ($insect_search = $request->get('insect_search', '')) {
+            $bindings['insects.common_name LIKE ?'] = $insect_search . "%";
+        }
+        if ($plant_search = $request->get('plant_search', '')) {
+            $bindings['plants.common_name LIKE ?'] = $plant_search . "%";
+        }
+
+        if (!empty($bindings)) {
+            $baseQuery .= "WHERE " . implode(' AND ', array_keys($bindings));
+        }
+
+        $searchResults =  DB::select($baseQuery, array_values($bindings));
+
+        return json_encode($this->transformSearchResults($searchResults));
     }
 
     protected function transformSearchResults($searchResults)
@@ -51,13 +58,19 @@ class SearchController extends Controller
         foreach ($searchResults as $searchResult) {
             $out[] = [
                 'interaction' => [
+                    'interaction_id' => $searchResult->interaction_id,
                     'plant' => [
                         'plant_id' => $searchResult->plant_id,
                         'common_name' => $searchResult->plant_common_name,
+                        'description' => $searchResult->plant_description,
                     ],
                     'insect' => [
-
-                    ]
+                        'insect_id' => $searchResult->insect_id,
+                        'common_name' => $searchResult->insect_common_name,
+                        'description' => $searchResult->insect_description,
+                    ],
+                    'type' => $searchResult->type,
+                    'verb' => $searchResult->verb,
                 ]
             ];
         }
