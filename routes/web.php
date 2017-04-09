@@ -11,4 +11,8 @@
 |
 */
 
-$app->post('/api/search', 'SearchController@search');
+$app->get('/api/search', 'SearchController@search');
+
+$app->get('/api/insects', 'InsectsController@returnInsects');
+
+$app->get('/api/plants', 'PlantsController@returnPlants');

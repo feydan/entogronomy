@@ -7,16 +7,6 @@ use DB;
 
 class SearchController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-
-    }
-
     public function search(Request $request)
     {
         $baseQuery = '
