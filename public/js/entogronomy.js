@@ -56,7 +56,7 @@ $(document).ready(function () {
 		e.preventDefault();
 		var values = $(this).serialize();
 		$.post('api/interactions', values, function () {
-			//window.location.href = "/";
+			window.location.href = "index.html";
 		})
 	});
 });
