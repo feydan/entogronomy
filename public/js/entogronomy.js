@@ -74,8 +74,8 @@ function getLocation() {
 
 function showPosition(position) {
 	var latlon = position.coords.latitude + "," + position.coords.longitude;
-	lat = position.coords.latitude;
-	lon = position.coords.longitude;
+	$("input[name = 'lat']").val(position.coords.latitude);
+	$("input[name = 'long']").val(position.coords.longitude);
 
 	var img_url = "https://maps.googleapis.com/maps/api/staticmap?center="
 		+latlon+"&zoom=14&size=400x300&sensor=false&key=AIzaSyBu-916DdpKAjTmJNIgngS6HL_kDIKU0aU";
