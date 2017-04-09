@@ -74,6 +74,8 @@ function getLocation() {
 
 function showPosition(position) {
 	var latlon = position.coords.latitude + "," + position.coords.longitude;
+	$("input[name = "lat"]").val() = position.coords.latitude;
+	$("input[name = "lon"]").val() = position.coords.longitude;
 	lat = position.coords.latitude;
 	lon = position.coords.longitude;
 
