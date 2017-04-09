@@ -64,11 +64,10 @@ $(document).ready(function () {
 		url: 'api/image',
 		maxFiles: 1,
 		onUploadSuccess: function(id, image_url){
-			$("input[name='image-url']").val(image_url);
+			$("input[name='image_url']").val(image_url);
 			console.log('We reach the end of the upload Queue!');
 			console.log('Succefully upload #' + id);
 			console.log('Server response was:');
-			console.log(data);
 		}
 	});
 });

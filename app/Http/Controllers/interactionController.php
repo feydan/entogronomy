@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 use DB;
 use Illuminate\Http\Request;
 
-class interactionController
+class InteractionController
 {
     public function addInteraction(Request $request)
     {
@@ -24,16 +24,31 @@ class interactionController
         $input['type'] = 'negative';
         $input['verb'] = 'consumes';
 
+        $imageUrl = null;
+        if (isset($input['image_url'])) {
+            $imageUrl = $input['image_url'] ?: null;
+            unset($input['image_url']);
+        }
+
         $imageInsert = [
-            'interaction_id' => DB::table('interactions')->insertGetId($input)
+            'interaction_id' => DB::table('interactions')->insertGetId($input),
+            'url' => $imageUrl
         ];
 
-        if ($request->hasFile('image')) {
-            echo "image file";
-            $imageInsert['url'] = $request->file('image')->store('interactions');
-            DB::table('interaction_images')->insertGetId($imageInsert);
+        if ($imageInsert['url'] !== null) {
+            DB::table('interaction_images')->insert($imageInsert);
         }
 
         return "success";
+    }
+
+    public function uploadImage(Request $request)
+    {
+        if ($request->hasFile('file')) {
+            $imagePath = $request->file('file')->store('interactions');
+            return $imagePath;
+        }
+
+        throw new \Exception('File not set', 400);
     }
 }

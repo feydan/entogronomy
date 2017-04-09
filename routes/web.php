@@ -18,3 +18,4 @@ $app->get('/api/insects', 'InsectsController@returnInsects');
 $app->get('/api/plants', 'PlantsController@returnPlants');
 
 $app->post('/api/interactions', 'InteractionController@addInteraction');
+$app->post('/api/image', 'InteractionController@uploadImage');

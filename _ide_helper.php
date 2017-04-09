@@ -1,7 +1,7 @@
 <?php
 /**
  * A helper file for Laravel 5, to provide autocomplete information to your IDE
- * Generated for Laravel Lumen (5.4.6) (Laravel Components 5.4.*) on 2017-04-08.
+ * Generated for Laravel Lumen (5.4.6) (Laravel Components 5.4.*) on 2017-04-09.
  *
  * @author Barry vd. Heuvel <barryvdh@gmail.com>
  * @see https://github.com/barryvdh/laravel-ide-helper
@@ -5678,6 +5678,141 @@ namespace Illuminate\Support\Facades {
         }
         
     }         
+
+    class Storage {
+        
+        /**
+         * Get a filesystem instance.
+         *
+         * @param string $name
+         * @return \Illuminate\Contracts\Filesystem\Filesystem 
+         * @static 
+         */
+        public static function drive($name = null)
+        {
+            return \Illuminate\Filesystem\FilesystemManager::drive($name);
+        }
+        
+        /**
+         * Get a filesystem instance.
+         *
+         * @param string $name
+         * @return \Illuminate\Contracts\Filesystem\Filesystem 
+         * @static 
+         */
+        public static function disk($name = null)
+        {
+            return \Illuminate\Filesystem\FilesystemManager::disk($name);
+        }
+        
+        /**
+         * Get a default cloud filesystem instance.
+         *
+         * @return \Illuminate\Contracts\Filesystem\Filesystem 
+         * @static 
+         */
+        public static function cloud()
+        {
+            return \Illuminate\Filesystem\FilesystemManager::cloud();
+        }
+        
+        /**
+         * Create an instance of the local driver.
+         *
+         * @param array $config
+         * @return \Illuminate\Contracts\Filesystem\Filesystem 
+         * @static 
+         */
+        public static function createLocalDriver($config)
+        {
+            return \Illuminate\Filesystem\FilesystemManager::createLocalDriver($config);
+        }
+        
+        /**
+         * Create an instance of the ftp driver.
+         *
+         * @param array $config
+         * @return \Illuminate\Contracts\Filesystem\Filesystem 
+         * @static 
+         */
+        public static function createFtpDriver($config)
+        {
+            return \Illuminate\Filesystem\FilesystemManager::createFtpDriver($config);
+        }
+        
+        /**
+         * Create an instance of the Amazon S3 driver.
+         *
+         * @param array $config
+         * @return \Illuminate\Contracts\Filesystem\Cloud 
+         * @static 
+         */
+        public static function createS3Driver($config)
+        {
+            return \Illuminate\Filesystem\FilesystemManager::createS3Driver($config);
+        }
+        
+        /**
+         * Create an instance of the Rackspace driver.
+         *
+         * @param array $config
+         * @return \Illuminate\Contracts\Filesystem\Cloud 
+         * @static 
+         */
+        public static function createRackspaceDriver($config)
+        {
+            return \Illuminate\Filesystem\FilesystemManager::createRackspaceDriver($config);
+        }
+        
+        /**
+         * Set the given disk instance.
+         *
+         * @param string $name
+         * @param mixed $disk
+         * @return void 
+         * @static 
+         */
+        public static function set($name, $disk)
+        {
+            \Illuminate\Filesystem\FilesystemManager::set($name, $disk);
+        }
+        
+        /**
+         * Get the default driver name.
+         *
+         * @return string 
+         * @static 
+         */
+        public static function getDefaultDriver()
+        {
+            return \Illuminate\Filesystem\FilesystemManager::getDefaultDriver();
+        }
+        
+        /**
+         * Get the default cloud driver name.
+         *
+         * @return string 
+         * @static 
+         */
+        public static function getDefaultCloudDriver()
+        {
+            return \Illuminate\Filesystem\FilesystemManager::getDefaultCloudDriver();
+        }
+        
+        /**
+         * Register a custom driver creator Closure.
+         *
+         * @param string $driver
+         * @param \Closure $callback
+         * @return $this 
+         * @static 
+         */
+        public static function extend($driver, $callback)
+        {
+            return \Illuminate\Filesystem\FilesystemManager::extend($driver, $callback);
+        }
+        
+    }         
 }
     
     
@@ -5704,6 +5839,8 @@ namespace {
     class Request extends \Illuminate\Support\Facades\Request {}
     
     class Schema extends \Illuminate\Support\Facades\Schema {}
+    
+    class Storage extends \Illuminate\Support\Facades\Storage {}
     
 }
 

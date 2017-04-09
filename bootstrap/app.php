@@ -48,13 +48,12 @@ $app->singleton(
     App\Console\Kernel::class
 );
 
-$app->singleton('filesystem', function (\Laravel\Lumen\Application $app) {
-    return $app->loadComponent(
-        'filesystems',
-        Illuminate\Filesystem\FilesystemServiceProvider::class,
-        'filesystem'
-    );
-});
+$app->singleton(
+    Illuminate\Contracts\Filesystem\Factory::class,
+    function ($app) {
+        return new Illuminate\Filesystem\FilesystemManager($app);
+    }
+);
 
 /*
 |--------------------------------------------------------------------------
