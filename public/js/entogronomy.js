@@ -59,6 +59,17 @@ $(document).ready(function () {
 			window.location.href = "index.html";
 		})
 	});
+
+	$("#drop-area-div").dmUploader({
+		url: 'api/image',
+		maxFiles: 1,
+		onUploadSuccess: function(id, image_url){
+			$("input[name='image_url']").val(image_url);
+			console.log('We reach the end of the upload Queue!');
+			console.log('Succefully upload #' + id);
+			console.log('Server response was:');
+		}
+	});
 });
 
 
@@ -108,7 +119,7 @@ function previewFile(){
 
 	reader.onloadend = function () {
 		preview.src = reader.result;
-	}
+	};
 
 	if (file) {
 		reader.readAsDataURL(file); //reads the data as a URL
