@@ -16,3 +16,5 @@ $app->get('/api/search', 'SearchController@search');
 $app->get('/api/insects', 'InsectsController@returnInsects');
 
 $app->get('/api/plants', 'PlantsController@returnPlants');
+
+$app->post('/api/interactions', 'InteractionController@addInteraction');

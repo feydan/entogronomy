@@ -1,32 +1,30 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Ian
- * Date: 4/8/2017
- * Time: 8:07 PM
- */
-
 namespace App\Http\Controllers;
 
+use DB;
+use Illuminate\Http\Request;
 
 class interactionController
 {
-    public function input(Request $request)
+    public function addInteraction(Request $request)
     {
+        $input = $request->all();
 
+        $plant = DB::table('plants')->where('common_name', '=', $input['plant_name'])->first();
+        unset($input['plant_name']);
+        $insect = DB::table('insects')->where('common_name', '=', $input['insect_name'])->first();
+        unset($input['insect_name']);
+
+        if ($plant === null || $insect === null) {
+            throw new \Exception('Could not find plant or insect', 400);
+        }
+
+        $input['plant_id'] = $plant->plant_id;
+        $input['insect_id'] = $insect->insect_id;
+        $input['type'] = 'negative';
+        $input['verb'] = 'consumes';
+
+        DB::table('interactions')->insert($input);
+        return "success";
     }
 }
-
-$plant_id = mysqli_real_escape_string($db, $_POST['plant_id']);
-$insect_id = mysqli_real_escape_string($db,$_POST['insect_id']);
-$type = mysqli_real_escape_string($db,$_POST['type']);
-$verb = mysqli_real_escape_string($db, $_POST['verb']);
-$location = mysqli_real_escape_string($db,$_POST['location']);
-$lat = mysqli_real_escape_string($db,$_POST['lat']);
-$long = mysqli_real_escape_string($db,$_POST['long']);
-$description = mysqli_real_escape_string($db,$_POST['description']);
-
-if (mysql_query("INSERT INTO `interactions` (`plant_id`, `insect_id`, `type`, 'verb', 'location', 'lat', 'long', 'description') VALUES ('".$plant_id."','".$insect_id."','".$type."','".$verb."','".$location."','".$lat."','".$long."','".$description."','".$type."')"))
-    echo"successfully inserted";
-else
-    echo "failed";
