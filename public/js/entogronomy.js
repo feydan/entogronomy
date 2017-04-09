@@ -56,8 +56,20 @@ $(document).ready(function () {
 		e.preventDefault();
 		var values = $(this).serialize();
 		$.post('api/interactions', values, function () {
-			//window.location.href = "/";
+			window.location.href = "index.html";
 		})
+	});
+
+	$("#drop-area-div").dmUploader({
+		url: 'api/image',
+		maxFiles: 1,
+		onUploadSuccess: function(id, image_url){
+			$("input[name='image-url']").val(image_url);
+			console.log('We reach the end of the upload Queue!');
+			console.log('Succefully upload #' + id);
+			console.log('Server response was:');
+			console.log(data);
+		}
 	});
 });
 
@@ -74,8 +86,8 @@ function getLocation() {
 
 function showPosition(position) {
 	var latlon = position.coords.latitude + "," + position.coords.longitude;
-	lat = position.coords.latitude;
-	lon = position.coords.longitude;
+	$("input[name = 'lat']").val(position.coords.latitude);
+	$("input[name = 'long']").val(position.coords.longitude);
 
 	var img_url = "https://maps.googleapis.com/maps/api/staticmap?center="
 		+latlon+"&zoom=14&size=400x300&sensor=false&key=AIzaSyBu-916DdpKAjTmJNIgngS6HL_kDIKU0aU";
