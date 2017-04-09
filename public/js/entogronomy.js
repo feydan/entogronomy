@@ -1,35 +1,4 @@
 $(document).ready(function () {
-	//$("form[name='search']").submit(function(e) {
-	//	e.preventDefault();
-	//	$("#results").html('');
-    //
-	//	var data = {
-	//		'insect_search': $("input[name='insect_search']")[0].value,
-	//		'plant_search': $("input[name='plant_search']")[0].value
-	//	};
-	//	console.log(data);
-	//
-	//	 $.ajax({
-	//		 'url': '/search',
-	//	 	 'type': 'POST',
-	//	 	 'data': data,
-	//		 'dataType': 'json',
-	//		 'success': function (search_responses) {
-	//			 var html_result = "";
-	//			 console.log(search_responses);
-	//			 $.each(search_responses, function (index, search_response) {
-	//				 html_result += "" +
-	//					 "<p>" +
-	//					 "<span>" + search_response.interaction.insect.common_name + "</span>" +
-	//					 "<span class='red'>" + search_response.interaction.verb + "</span>" +
-	//					 "<span>" + search_response.interaction.plant.common_name + "</span>" +
-	//					 "</p>";
-	//			 });
-    //
-	//			 $("#results").html(html_result);
-	//		 }
-	//	 });
-	//})
 	var insectData = function (request, response) {
 		var term = request.term.toLowerCase(); // convert search term to lowercase for case insensitive search
 		$.getJSON(
@@ -51,10 +20,11 @@ $(document).ready(function () {
 			});
 	};
 
-	$( "input[name='pest']" ).autocomplete({
-		appendTo: "#pest_menu",
+	$( "input[name='insect_name']" ).autocomplete({
+		appendTo: "#insect_menu",
 		source: insectData
 	});
+
 
 	var plantData = function (request, response) {
 		var term = request.term.toLowerCase(); // convert search term to lowercase for case insensitive search
@@ -77,8 +47,74 @@ $(document).ready(function () {
 			});
 	};
 
-	$( "input[name='crop']" ).autocomplete({
-		appendTo: "#crop_menu",
+	$( "input[name='plant_name']" ).autocomplete({
+		appendTo: "#plant_menu",
 		source: plantData
 	});
+
+	$("form[name='search']").submit(function(e) {
+		e.preventDefault();
+		var values = $(this).serialize();
+		$.post('api/interactions', values, function () {
+			//window.location.href = "/";
+		})
+	});
 });
+
+
+var x = document.getElementById("demo");
+
+function getLocation() {
+	if (navigator.geolocation) {
+		navigator.geolocation.getCurrentPosition(showPosition, showError);
+	} else {
+		x.innerHTML = "Geolocation is not supported by this browser.";
+	}
+}
+
+function showPosition(position) {
+	var latlon = position.coords.latitude + "," + position.coords.longitude;
+	lat = position.coords.latitude;
+	lon = position.coords.longitude;
+
+	var img_url = "https://maps.googleapis.com/maps/api/staticmap?center="
+		+latlon+"&zoom=14&size=400x300&sensor=false&key=AIzaSyBu-916DdpKAjTmJNIgngS6HL_kDIKU0aU";
+	document.getElementById("mapholder").innerHTML = "<img src='"+img_url+"'>";
+}
+//To use this code on your website, get a free API key from Google.
+
+
+function showError(error) {
+	switch(error.code) {
+		case error.PERMISSION_DENIED:
+			x.innerHTML = "User denied the request for Geolocation."
+			break;
+		case error.POSITION_UNAVAILABLE:
+			x.innerHTML = "Location information is unavailable."
+			break;
+		case error.TIMEOUT:
+			x.innerHTML = "The request to get user location timed out."
+			break;
+		case error.UNKNOWN_ERROR:
+			x.innerHTML = "An unknown error occurred."
+			break;
+	}
+}
+
+function previewFile(){
+	var preview = document.querySelector('img'); //selects the query named img
+	var file    = document.querySelector('input[type=file]').files[0]; //sames as here
+	var reader  = new FileReader();
+
+	reader.onloadend = function () {
+		preview.src = reader.result;
+	}
+
+	if (file) {
+		reader.readAsDataURL(file); //reads the data as a URL
+	} else {
+		preview.src = "";
+	}
+}
+
+previewFile();  //calls the function named previewFile()
