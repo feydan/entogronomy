@@ -12,7 +12,10 @@
 */
 
 $app->get('/api/search', 'SearchController@search');
+<<<<<<< HEAD
 
 $app->get('/api/insects', 'InsectsController@returnInsects');
 
 $app->get('/api/plants', 'PlantsController@returnPlants');
+=======
+>>>>>>> 85a7d346224eccccb9fce56d51a550f0b66a4cc9
