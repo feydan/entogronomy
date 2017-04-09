@@ -43,10 +43,7 @@ $(document).ready(function () {
 					var commonName = insect.common_name.toLowerCase(); // convert insect common name to lowercase for case insensitive search
 					// If the common name starts with the term
 					if (commonName.startsWith(term)) {
-						results.push({
-							'label': insect.common_name,
-							'value': insect.insect_id
-						});
+						results.push(insect.common_name);
 					}
 				});
 
@@ -57,5 +54,31 @@ $(document).ready(function () {
 	$( "input[name='pest']" ).autocomplete({
 		appendTo: "#pest_menu",
 		source: insectData
+	});
+
+	var plantData = function (request, response) {
+		var term = request.term.toLowerCase(); // convert search term to lowercase for case insensitive search
+		$.getJSON(
+			"api/plants",
+			function (plants) {
+				results = [];
+
+				// Loop through all of the plants
+				$.each(plants, function (index, plant) {
+
+					var commonName = plant.common_name.toLowerCase(); // convert plant common name to lowercase for case insensitive search
+					// If the common name starts with the term
+					if (commonName.startsWith(term)) {
+						results.push(plant.common_name);
+					}
+				});
+
+				response(results);
+			});
+	};
+
+	$( "input[name='crop']" ).autocomplete({
+		appendTo: "#crop_menu",
+		source: plantData
 	});
 });
