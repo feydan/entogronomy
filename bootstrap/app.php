@@ -48,6 +48,14 @@ $app->singleton(
     App\Console\Kernel::class
 );
 
+$app->singleton('filesystem', function (\Laravel\Lumen\Application $app) {
+    return $app->loadComponent(
+        'filesystems',
+        Illuminate\Filesystem\FilesystemServiceProvider::class,
+        'filesystem'
+    );
+});
+
 /*
 |--------------------------------------------------------------------------
 | Register Middleware
@@ -97,5 +105,7 @@ $app->register(Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class);
 $app->group(['namespace' => 'App\Http\Controllers'], function ($app) {
     require __DIR__.'/../routes/web.php';
 });
+
+$app->configure('filesystems');
 
 return $app;
