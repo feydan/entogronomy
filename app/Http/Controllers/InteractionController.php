@@ -24,7 +24,16 @@ class interactionController
         $input['type'] = 'negative';
         $input['verb'] = 'consumes';
 
-        DB::table('interactions')->insert($input);
+        $imageInsert = [
+            'interaction_id' => DB::table('interactions')->insertGetId($input)
+        ];
+
+        if ($request->hasFile('image')) {
+            echo "image file";
+            $imageInsert['url'] = $request->file('image')->store('interactions');
+            DB::table('interaction_images')->insertGetId($imageInsert);
+        }
+
         return "success";
     }
 }

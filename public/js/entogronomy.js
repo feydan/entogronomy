@@ -108,7 +108,7 @@ function previewFile(){
 
 	reader.onloadend = function () {
 		preview.src = reader.result;
-	}
+	};
 
 	if (file) {
 		reader.readAsDataURL(file); //reads the data as a URL
