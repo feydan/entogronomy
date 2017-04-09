@@ -10,8 +10,9 @@ class InsectsController
     public function returnInsects(Request $request)
     {
         $baseQuery ='
-        SELECT * 
-        FROM insects';
+            SELECT *
+            FROM insects
+        ';
 
         $searchResults =  DB::select($baseQuery);
         return json_encode($searchResults);

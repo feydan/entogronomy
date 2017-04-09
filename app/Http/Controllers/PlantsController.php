@@ -10,8 +10,9 @@ class PlantsController
     public function returnPlants(Request $request)
     {
         $baseQuery ='
-        SELECT * 
-        FROM plants';
+            SELECT *
+            FROM plants
+        ';
 
         $searchResults =  DB::select($baseQuery);
         return json_encode($searchResults);
