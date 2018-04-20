@@ -11,6 +11,22 @@
 |
 */
 
+/**
+ * Page Routes
+ */
+$app->get('/', function () {
+    return view('index', ['title' => 'Entogronomy | Home']);
+});
+$app->get('/report', function () {
+    return view('report', ['title' => 'Entogronomy | Report Form',]);
+});
+$app->get('/map', function () {
+    return view('map', ['title' => 'Entogronomy | Map',]);
+});
+
+/**
+ * API Routes
+ */
 $app->get('/api/search', 'SearchController@search');
 
 $app->get('/api/insects', 'InsectsController@returnInsects');

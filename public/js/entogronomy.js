@@ -1,55 +1,43 @@
+var cacheData = {};
+
 $(document).ready(function () {
-	var insectData = function (request, response) {
-		var term = request.term.toLowerCase(); // convert search term to lowercase for case insensitive search
-		$.getJSON(
-			"api/insects",
-			function (insects) {
-				results = [];
-
-				// Loop through all of the insects
-				$.each(insects, function (index, insect) {
-
-					var commonName = insect.common_name.toLowerCase(); // convert insect common name to lowercase for case insensitive search
+	// returns autocomplete data from the specified route
+	var autocompleteFetch = function (route) {
+		return function (request, response) {
+			var term = request.term.toLowerCase(); // convert search term to lowercase for case insensitive search
+			var filterList = function (list) {
+				var results = [];
+				$.each(list, function (index, item) {
 					// If the common name starts with the term
-					if (commonName.startsWith(term)) {
-						results.push(insect.common_name);
+					if (item.common_name.toLowerCase().startsWith(term)) {
+						results.push(item.common_name);
 					}
 				});
+				return results;
+			};
+			if (cacheData.hasOwnProperty(route)) {
+				response(filterList(cacheData[route]));
+			} else {
+				$.getJSON(
+					route,
+					function (serverList) {
+						// Loop through all of the insects
+						response(filterList(serverList));
+					}
+				);
+			}
 
-				response(results);
-			});
+		};
 	};
 
-	$( "input[name='insect_name']" ).autocomplete({
+	$( "input[name='insect_name']").autocomplete({
 		appendTo: "#insect_menu",
-		source: insectData
+		source: autocompleteFetch('api/insects')
 	});
 
-
-	var plantData = function (request, response) {
-		var term = request.term.toLowerCase(); // convert search term to lowercase for case insensitive search
-		$.getJSON(
-			"api/plants",
-			function (plants) {
-				results = [];
-
-				// Loop through all of the plants
-				$.each(plants, function (index, plant) {
-
-					var commonName = plant.common_name.toLowerCase(); // convert plant common name to lowercase for case insensitive search
-					// If the common name starts with the term
-					if (commonName.startsWith(term)) {
-						results.push(plant.common_name);
-					}
-				});
-
-				response(results);
-			});
-	};
-
-	$( "input[name='plant_name']" ).autocomplete({
+	$( "input[name='plant_name']").autocomplete({
 		appendTo: "#plant_menu",
-		source: plantData
+		source: autocompleteFetch('api/plants')
 	});
 
 	$("form[name='search']").submit(function(e) {
@@ -85,8 +73,8 @@ function getLocation() {
 
 function showPosition(position) {
 	var latlon = position.coords.latitude + "," + position.coords.longitude;
-	$("input[name = 'lat']").val(position.coords.latitude);
-	$("input[name = 'long']").val(position.coords.longitude);
+	$("input[name='lat']").val(position.coords.latitude);
+	$("input[name='long']").val(position.coords.longitude);
 
 	var img_url = "https://maps.googleapis.com/maps/api/staticmap?center="
 		+latlon+"&zoom=14&size=400x300&sensor=false&key=AIzaSyBu-916DdpKAjTmJNIgngS6HL_kDIKU0aU";
